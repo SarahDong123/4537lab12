@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import Page from './Page';
+import Pagination from './Pagination';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [pokemons, setPokemons] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get('https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json')
+      setPokemons(result.data)
+    }
+    fetchData()
+  }, [])
+
+  const pageSize = 10;
+  const numberOfPages = Math.ceil(pokemons.length / pageSize);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <h1>
+      <Page
+        pokemons={pokemons}
+        currentPage={currentPage}
+      />
+      <Pagination
+        numberOfPages={numberOfPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
+    </h1>
   );
 }
 

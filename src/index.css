@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button {
+  display:inline-block
+}
+
+button.btnActive {
+  background-color: #4caf50;
+  color:#fff
+}
+
+.pokemon-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center
+}
